@@ -1,0 +1,6 @@
+version: '3'
+
+services:
+  composer:
+    environment:
+      COMPOSER_AUTH: '{"github-oauth": {"github.com": "$COMPOSER_AUTH_TOKEN"}}' #https://github.com/settings/tokens/new?scopes=repo&description=COMPOSER_AUTH_TOKEN

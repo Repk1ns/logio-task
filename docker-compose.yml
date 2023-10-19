@@ -1,0 +1,53 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - 8080:80
+    volumes:
+      - ./:/var/www/html:delegated
+      - ./docker/web/apache/localhost:/etc/apache2/sites-enabled
+      - ./docker/web/php/php.ini:/usr/local/etc/php/conf.d/php.ini:delegated
+      - ~/.composer/docker-cache:/root/.composer/cache:cached
+    environment:
+      VIRTUAL_HOST: www.logio.localhost, logio.localhost
+    links:
+      - database
+
+  database:
+    image: mariadb:latest
+    volumes:
+      - database:/var/lib/mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_USER: logio
+      MYSQL_PASSWORD: logio
+      MYSQL_DATABASE: logio
+
+  adminer:
+    image: adminer:latest
+    ports:
+      - 8081:8080
+    volumes:
+      - ./docker/web/adminer/plugins/AdminerForeignKeysPlugin.php:/var/www/html/plugins-enabled/AdminerForeignKeysPlugin.php
+    environment:
+      VIRTUAL_HOST: pma.symfony-web-skeleton.localhost
+      ADMINER_PLUGINS: tables-filter
+    links:
+      - database:db
+
+  composer:
+    build: .
+    entrypoint: composer
+    command: install
+    volumes:
+      - ./:/var/www/html
+      - ~/.composer/docker-cache:/root/.composer/cache:cached
+
+volumes:
+  database:
+
+networks:
+  default:
+    name: nginx-proxy
