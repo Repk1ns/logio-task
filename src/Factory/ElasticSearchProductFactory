@@ -1,0 +1,11 @@
+<?php declare(strict_types = 1);
+
+namespace App\Factory;
+
+class ElasticSearchProductFactory implements \App\Factory\IProductFactory
+{
+    public function getProductById(int $id): int
+    {
+        return 142;
+    }
+}
