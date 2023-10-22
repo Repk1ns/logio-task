@@ -8,27 +8,12 @@ class Product implements \JsonSerializable
 
     private string $name;
 
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-
-    public function setId(int $id): void
+    public function __construct(
+        int $id,
+        string $name,
+    )
     {
         $this->id = $id;
-    }
-
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-
-    public function setName(string $name): void
-    {
         $this->name = $name;
     }
 

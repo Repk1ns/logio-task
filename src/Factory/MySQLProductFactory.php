@@ -9,7 +9,8 @@ class MySQLProductFactory implements \App\Factory\IProductFactory
 
     public function __construct(
         \App\Repository\IMySQLDriver $mySQLDriver,
-    ) {
+    )
+    {
         $this->mySQLDriver = $mySQLDriver;
     }
 
@@ -18,14 +19,10 @@ class MySQLProductFactory implements \App\Factory\IProductFactory
     {
         $productData = $this->mySQLDriver->findProduct($id);
 
-        if ($productData) {
-            $product = new \App\DTO\Product();
-            $product->setId($productData['id']);
-            $product->setName($productData['name']);
-
-            return $product;
+        if ($productData === NULL) {
+            return new \App\DTO\Product($productData['id'], $productData['name']);
         }
 
-        return null;
+        return NULL;
     }
 }

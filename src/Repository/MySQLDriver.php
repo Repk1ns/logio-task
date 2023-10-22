@@ -6,11 +6,10 @@ class MySQLDriver implements \App\Repository\IMySQLDriver
 {
     public function findProduct(int $id): array
     {
-        $product = [
+        return [
             'id' => $id,
             'name' => 'Test Product from MySQL',
         ];
 
-        return $product;
     }
 }

@@ -2,15 +2,16 @@
 
 namespace App\Service;
 
-class ProductService
+class ProductCacheRepository
 {
     private \App\Factory\IProductFactory $productFactory;
     private \Symfony\Contracts\Cache\CacheInterface $cache;
 
     public function __construct(
         \App\Factory\IProductFactory $productFactory,
-        \Symfony\Contracts\Cache\CacheInterface $cache
-    ) {
+        \Symfony\Contracts\Cache\CacheInterface $cache,
+    )
+    {
 
         $this->productFactory = $productFactory;
         $this->cache = $cache;

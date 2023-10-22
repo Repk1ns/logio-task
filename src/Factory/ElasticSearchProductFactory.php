@@ -8,8 +8,9 @@ class ElasticSearchProductFactory implements \App\Factory\IProductFactory
 
 
     public function __construct(
-        \App\Repository\IElasticSearchDriver $elasticSearchDriver
-    ) {
+        \App\Repository\IElasticSearchDriver $elasticSearchDriver,
+    )
+    {
 
         $this->elasticSearchDriver = $elasticSearchDriver;
     }
@@ -19,14 +20,10 @@ class ElasticSearchProductFactory implements \App\Factory\IProductFactory
     {
         $productData = $this->elasticSearchDriver->findById($id);
 
-        if ($productData) {
-            $product = new \App\DTO\Product();
-            $product->setId($productData['id']);
-            $product->setName($productData['name']);
-
-            return $product;
+        if ($productData === NULL) {
+            return new \App\DTO\Product($productData['id'], $productData['name']);
         }
 
-        return null;
+        return NULL;
     }
 }

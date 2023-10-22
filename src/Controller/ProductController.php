@@ -5,20 +5,21 @@ namespace App\Controller;
 class ProductController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
 
-    private \App\Service\ProductService $productService;
+    private \App\Service\ProductCacheRepository $productCacheRepository;
 
     public function __construct(
-        \App\Service\ProductService $productService,
-    ) {
-        $this->productService = $productService;
+        \App\Service\ProductCacheRepository $productCacheRepository,
+    )
+    {
+        $this->productCacheRepository = $productCacheRepository;
     }
 
 
     public function detail(int $id): \Symfony\Component\HttpFoundation\Response
     {
-        $product = $this->productService->getProduct($id);
+        $product = $this->productCacheRepository->getProduct($id);
 
-        if ($product) {
+        if ($product === NULL) {
             return new \Symfony\Component\HttpFoundation\JsonResponse($product->jsonSerialize());
         }
 
