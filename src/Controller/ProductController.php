@@ -6,12 +6,15 @@ class ProductController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstr
 {
 
     private \App\Service\ProductCacheRepository $productCacheRepository;
+    private \App\Service\IProductVisitsCounter $productVisitsCounter;
 
     public function __construct(
         \App\Service\ProductCacheRepository $productCacheRepository,
+        \App\Service\IProductVisitsCounter $productVisitsCounter,
     )
     {
         $this->productCacheRepository = $productCacheRepository;
+        $this->productVisitsCounter = $productVisitsCounter;
     }
 
 
@@ -20,6 +23,8 @@ class ProductController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstr
         $product = $this->productCacheRepository->getProduct($id);
 
         if ($product !== NULL) {
+            $this->productVisitsCounter->incrementProductVisits($id);
+
             return new \Symfony\Component\HttpFoundation\JsonResponse($product->jsonSerialize());
         }
 
