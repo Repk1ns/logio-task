@@ -6,6 +6,11 @@ class ElasticSearchDriver implements \App\Repository\IElasticSearchDriver
 {
     public function findById(int $id): array
     {
-        return [142];
+        $product = [
+            'id' => $id,
+            'name' => 'Test Product from ElasticSearch',
+        ];
+
+        return $product;
     }
 }

@@ -4,5 +4,5 @@ namespace App\Factory;
 
 interface IProductFactory
 {
-    public function getProductById(int $id): int;
+    public function getProductById(int $id): ?\App\DTO\Product;
 }
