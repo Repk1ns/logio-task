@@ -20,9 +20,9 @@ class MySQLProductFactory implements \App\Factory\IProductFactory
         $productData = $this->mySQLDriver->findProduct($id);
 
         if ($productData === NULL) {
-            return new \App\DTO\Product($productData['id'], $productData['name']);
+            return NULL;
         }
 
-        return NULL;
+        return new \App\DTO\Product($productData['id'], $productData['name']);
     }
 }

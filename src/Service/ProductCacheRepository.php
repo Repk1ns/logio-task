@@ -22,13 +22,13 @@ class ProductCacheRepository
         return $this->cache->get('product_' . $id, function (\Symfony\Contracts\Cache\ItemInterface $item) use ($id) {
             $product = $this->productFactory->getProductById($id);
 
-            if ($product) {
+            if ($product !== NULL) {
                 $item->expiresAfter(3600);
 
                 return $product;
             }
 
-            return null;
+            return NULL;
         });
     }
 

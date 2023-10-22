@@ -21,9 +21,9 @@ class ElasticSearchProductFactory implements \App\Factory\IProductFactory
         $productData = $this->elasticSearchDriver->findById($id);
 
         if ($productData === NULL) {
-            return new \App\DTO\Product($productData['id'], $productData['name']);
+            return NULL;
         }
 
-        return NULL;
+        return new \App\DTO\Product($productData['id'], $productData['name']);
     }
 }

@@ -19,7 +19,7 @@ class ProductController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstr
     {
         $product = $this->productCacheRepository->getProduct($id);
 
-        if ($product === NULL) {
+        if ($product !== NULL) {
             return new \Symfony\Component\HttpFoundation\JsonResponse($product->jsonSerialize());
         }
 
